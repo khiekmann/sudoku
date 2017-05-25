@@ -1,0 +1,78 @@
+//  jitpackio
+group = 'de.fnordbedarf.sudoku'
+
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+// Publish on jitpack.io
+// https://jitpack.io/docs/BUILDING/
+apply plugin: 'maven'
+
+// JUnit 5
+//apply plugin: 'org.junit.platform.gradle.plugin'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    //jcenter()
+    // Use 'mavenCentral' for resolving your dependencies.
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+// jitpack.io get the freshest build
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    // The production code uses the SLF4J logging API at compile time
+    // compile 'org.slf4j:slf4j-api:1.7.21'
+    // download library for JUnit 5
+//	compile 'com.github.khiekmann:deborah-debugger:v0.1'
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.0-M4'
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.0-M4'
+    compile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.0.0-M4'
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.4.0'
+
+    // Declare the dependency for your favourite test framework you want to use in your tests.
+    // TestNG is also supported by the Gradle Test task. Just change the
+    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
+    // 'test.useTestNG()' to your build script.
+    //testCompile 'junit:junit:4.12'
+    // download library for JUnit 5
+    // compile project for testing using Junit Jupiter Api
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M4")
+    // jitpack.io my debugging utility
+    testCompile 'com.github.khiekmann:deborah-debugger:master-SNAPSHOT'
+
+    /*
+    junitPlatform {
+    platformVersion "1.0.0-M4"
+    filters {
+        engines {
+            // include 'junit-jupiter'
+            // exclude 'junit-vintage'
+        }
+        tags {
+            // include 'fast', 'smoke'
+            // exclude 'slow', 'ci'
+        }
+        packages {
+            // include 'com.sample.included1', 'com.sample.included2'
+            // exclude 'com.sample.excluded1', 'com.sample.excluded2'
+        }
+        //includeClassNamePattern '.*Spec'
+        includeClassNamePatterns '.*Test', '.*Tests'
+        includeClassNamePatterns 'Given.*'
+    }
+}
+     */
+}
