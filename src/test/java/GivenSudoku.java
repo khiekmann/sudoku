@@ -12,10 +12,7 @@ public class GivenSudoku {
 
     private static final String n = System.getProperty("line.separator");
     private static final int nine = 9;
-    private static final String newFieldToString =
-            " _ _ _ " + n +
-            " _ _ _ " + n +
-            " _ _ _ " + n;
+    private static final int eachSideIsThree = 3;
 
     @Test
     public void expectBoardToHaveNineFields() {
@@ -24,11 +21,6 @@ public class GivenSudoku {
 
     @Test
     public void expectFieldToHaveNineCells() {
-        expect(new Field().getCells().size()).toBeEqualTo(nine).otherwiseComplain();
-    }
-
-    @Test
-    public void expectFieldToStringToBeEqualToNewFieldToString() {
-        expect(new Field().toString()).toBeEqualTo(newFieldToString);
+        expect(new Field(eachSideIsThree).length()).toBeEqualTo(nine).otherwiseComplain();
     }
 }

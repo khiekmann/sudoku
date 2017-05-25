@@ -5,8 +5,14 @@ package board;
  */
 public class Fields implements HasSize{
 
+    private final int[] fields;
+
+    public Fields() {
+        fields = new int[9];
+    }
+
     @Override
     public int size() {
-        return 0;
+        return fields.length;
     }
 }
