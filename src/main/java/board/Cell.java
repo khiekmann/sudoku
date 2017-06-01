@@ -1,25 +1,30 @@
 package board;
 
-import javax.annotation.PostConstruct;
-
 /**
  * Created by lora on 25.05.17.
+ *
  */
-public class Cell {
+public class Cell implements Resetable{
 
-    private final CellValue value;
+    private Symbol symbol;
 
-    static Cell withoutValue() {
+    static Cell with(Symbol symbol) {
+        return new Cell(symbol);
+    }
+
+    static Cell thatIsNotSet() {
         return new Cell();
     }
 
-    Cell() {
-        this.value = CellValue.notSet;
+    private Cell() { this(Symbol.notSet); }
+
+    Cell(Symbol symbol) {
+        this.symbol = symbol;
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return symbol.hashCode();
     }
 
     @Override
@@ -32,7 +37,22 @@ public class Cell {
     }
 
     @Override
+    public void reset() {
+        symbol = Symbol.notSet;
+    }
+
+    @Override
     public String toString() {
-        return value.toString();
+        return symbol.toString();
+    }
+
+    Symbol symbol(Symbol symbol) {
+        Symbol previous = this.symbol;
+        this.symbol = symbol;
+        return previous;
+    }
+
+    Symbol symbol() {
+        return symbol;
     }
 }

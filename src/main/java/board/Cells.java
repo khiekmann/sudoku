@@ -2,27 +2,39 @@ package board;
 
 /**
  * Created by lora on 25.05.17.
+ *
  */
-public class Cells implements HasSize, HasLength{
+public class Cells implements HasLength, Resetable {
 
-    private static final String n = System.getProperty("line.separator");
-
-    private final int size;
     private final Cell[] cells;
 
-    public Cells(int sizeOfEachSide) {
-        this.size = sizeOfEachSide;
-        cells = new Cell[sizeOfEachSide * sizeOfEachSide];
-        reset();
+    Cells(Cell[] arrayOfCells) {
+        cells = arrayOfCells;
     }
 
     @Override
-    public int size() {
-        return size;
+    public boolean equals(Object object) {
+        boolean isEqual = false;
+        if (object instanceof Cells) {
+            isEqual = (hashCode() == object.hashCode());
+        }
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
     }
 
     @Override
     public int length() { return cells.length; }
+
+    @Override
+    public void reset() {
+        for ( Cell cell : cells) {
+            cell.reset();
+        }
+    }
 
     @Override
     public String toString() {
@@ -33,9 +45,13 @@ public class Cells implements HasSize, HasLength{
         return builder.toString();
     }
 
-    private void reset() {
-        for ( int i = 0; i < cells.length; i++) {
-            cells[i] = Cell.withoutValue();
-        }
+    Symbol set(int index, Symbol toSymbol) {
+        Symbol previous = cells[index].symbol();
+        cells[index].symbol(toSymbol);
+        return previous;
+    }
+
+    Symbol getSymbolAt(int index) {
+        return cells[index].symbol();
     }
 }
